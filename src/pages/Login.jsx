@@ -1,8 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { loginUser } from "../api/api";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../store/authSlice";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
   const { register, handleSubmit } = useForm({
     defaultValues: {
       email: "",
@@ -20,6 +25,8 @@ function Login() {
           "refreshToken",
           loggedInUser.data.data.refreshToken
         );
+        dispatch(login({userData: loggedInUser.data.data}))
+        navigate('/')
       }
     } catch (error) {
       console.error(error);
