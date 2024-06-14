@@ -2,13 +2,15 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/authSlice";
 import { logoutUser } from "../api/api";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Upload } from "lucide-react";
 import ProfileButton from "./ProfileButton";
 
 function Navbar() {
   const { userData, status } = useSelector((state) => state.auth);
   // console.log("storedUserdata", userData, status);
+
+  const location = useLocation()
   const dispatch = useDispatch();
 
   const logmeOut = async () => {

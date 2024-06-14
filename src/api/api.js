@@ -5,7 +5,8 @@ const accessToken = localStorage.getItem("accessToken")
 const refreshToken = localStorage.getItem("refreshToken")
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api/v1', // Replace with your actual API base URL
+  // baseURL: 'http://localhost:8000/api/v1', // Replace with your actual API base URL
+  baseURL: "https://chai-backend-main-production.up.railway.app/api/v1",
   headers: { Authorization: `Bearer ${accessToken}` },
 });
 
