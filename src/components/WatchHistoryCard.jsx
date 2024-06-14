@@ -22,14 +22,14 @@ const VideoCard = ({ video }) => {
                 </span>
             </Link>
             <div className="p-4">
-                <Link to={`/channelPage/${video.ownerDetails._id}`} className="flex items-center mb-4">
+                <Link to={`/channelPage/${video.owner._id}`} className="flex items-center mb-4">
                     <img
                         className="w-10 h-10 rounded-full mr-4"
-                        src={video.ownerDetails.avatar}
-                        alt={`${video.ownerDetails.username} Avatar`}
+                        src={video.owner.avatar}
+                        alt={`${video.owner.username} Avatar`}
                     />
                     <div className="text-sm">
-                        <p className="text-gray-900 font-bold">{video.ownerDetails.fullName}</p>
+                        <p className="text-gray-900 font-bold">{video.owner.fullName}</p>
                     </div>
                 </Link>
                 <Link to={`/videoPage/${video._id}`}>

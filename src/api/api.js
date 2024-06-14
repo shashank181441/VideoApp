@@ -11,8 +11,8 @@ const api = axios.create({
 
 
 // Video Comments
-export const getVideoComments = (videoId) => api.get(`/comments/${videoId}`);
-export const addComment = (videoId, commentData) => api.post(`/comments/${videoId}`, commentData);
+export const getVideoComments = (videoId) => api.get(`/comments/${videoId}?limit=20&page=1`);
+export const addComment = (videoId, content, page=1, limit=20) => api.post(`/comments/${videoId}`, {content});
 
 // Comment Actions
 export const deleteComment = (commentId) => api.delete(`/comments/c/${commentId}`);
@@ -21,14 +21,17 @@ export const updateComment = (commentId, commentData) => api.patch(`/comments/c/
 // Channel Stats and Videos
 export const getChannelStats = () => api.get('/dashboard/stats');
 export const getChannelVideos = () => api.get('/dashboard/videos');
+export const getUserChannelVideos = (userId) => api.get(`/dashboard/videos/${userId}`);
+
+
 
 // Health Check
 export const healthcheck = () => api.get('/healthcheck/');
 
 // Toggle Likes
-export const toggleVideoLike = (videoId) => api.post(`/toggle/v/${videoId}`);
-export const toggleCommentLike = (commentId) => api.post(`/toggle/c/${commentId}`);
-export const toggleTweetLike = (tweetId) => api.post(`/toggle/t/${tweetId}`);
+export const toggleVideoLike = (videoId) => api.post(`/likes/toggle/v/${videoId}`);
+export const toggleCommentLike = (commentId) => api.post(`/likes/toggle/c/${commentId}`);
+export const toggleTweetLike = (tweetId) => api.post(`/likes/toggle/t/${tweetId}`);
 
 // Playlist
 export const createPlaylist = (playlistData) => api.post('/playlist/', playlistData);
@@ -40,7 +43,7 @@ export const removeVideoFromPlaylist = (videoId, playlistId) => api.patch(`/play
 
 // Subscription
 export const getSubscribedChannels = (channelId) => api.get(`/subscriptions/c/${channelId}`);
-export const toggleSubscription = (channelId) => api.post(`/subscriptions/c/${channelId}`);
+export const toggleSubscription = (channelId) => api.post(`/subscriptions/u/${channelId}`);
 export const getUserChannelSubscribers = (subscriberId) => api.get(`/subscriptions/u/${subscriberId}`);
 
 // Tweet
@@ -62,6 +65,8 @@ export const changeCurrentPassword = (passwordData) =>
 export const getCurrentUser = () => api.get('/users/current-user');
 export const updateAccountDetails = ( accountData) =>
   api.patch('/users/update-account', accountData);
+export const getUserChannelDetails = (username) =>
+  api.get(`/users/c/${username}`);
 export const updateUserAvatar = ( formData) =>
   api.patch('/users/avatar', formData, { headers: {  'Content-Type': 'multipart/form-data' } });
 export const updateUserCoverImage = ( formData) =>
@@ -74,6 +79,7 @@ export const getWatchHistory = () => api.get('/users/history');
 
 // Videos
 export const getAllVideos = () => api.get('/videos/');
+export const getWatchHistoryVideos = () => api.get('/videos/watchHistory');
 export const uploadAVideo = (formData) =>
   api.post('/videos', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
 export const getVideoById = (videoId) => api.get(`/videos/${videoId}`);
